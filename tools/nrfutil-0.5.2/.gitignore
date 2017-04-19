@@ -1,0 +1,2 @@
+# Ignore nuitka working directories.
+__main__.*
