@@ -71,17 +71,16 @@ Generating a frozen nrfutil:
   the name __main__.exe (yeah, they add .exe even on mac and linux platforms)
   so it needs to be renamed to nrfutil:
 
-    cp __main__.dist/__main__.exe
+    cp __main__.dist/__main__.exe __main__.dist/nrfutil
 
-  Then delete the old mac OS binary:
+  Then delete the old mac OS binaries:
 
-    rm -rf binaries/macos/
+    rm -f binaries/macos/*
 
   And finally copy _everything_ from inside __main__.dist to the macos binaries
   folder:
 
-    mkdir binaries/macos
-    cp __main__.dis/* binaries/macos/
+    cp __main__.dist/* binaries/macos/
 
   At this point the binaries/macos directory should have the nrfutil executable
   and all the .so files nuitka generated.  Try running nrfutil to make sure
