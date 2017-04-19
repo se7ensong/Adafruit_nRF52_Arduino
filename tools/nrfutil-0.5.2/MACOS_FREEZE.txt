@@ -1,69 +1,90 @@
 Instructions for how to produce a frozen nrfutil executable on MacOS
 
-These instructions describe how to use the cx_freeze tool to generate a
+These instructions describe how to use the nuitka tool to generate a
 standalone self-contained (or 'frozen') version of the nrfutil script.  This is
 useful for distribution so users don't need to manually install it and deal
 with potential python version headaches and more.
 
 Initial setup (do this once):
-- Get cx_freeze installed for _Python 2.7_.  Very important to use Python 2 as
-  the nrfutil script doesn't work with Python 3 and cx_freeze will use whichever
-  version of Python it's run with to build the exe (i.e. you need to run
-  cx_freeze with Python 2.7).  Assuming you have homebrew installed:
-  
+- Get nuitka installed for _Python 2.7_.  Very important to use Python 2 as
+  the nrfutil script doesn't work with Python 3.  Assuming you have homebrew
+  installed:
+
   - Update python 2 in homebrew to the latest version, and reinstall just to
     fix odd issues like links to old dynamic libraries that might be missing,
     etc.  Run:
-      
+
       brew update
       brew reinstall python
 
     Or if you never had homebrew python2 installed run:
-      
+
       brew install python
 
     Now just to make sure homebrew python is setup and linked as the 'active'
     python run:
-  
+
       brew unlink python && brew link python
-  
+
   - At this point when you run python or pip you should be using homebrew
     python.  Do not continue until this is true.
 
-  - Make sure there is no other version of cx_freeze already installed.  Run
-    these to wipe it out if so (it's ok if these fail with errors that cx_freeze
-    isn't installed):
-    
-      pip uninstall cx_freeze
-      pip2 uninstall cx_freeze
-      pip3 uninstall cx_freeze
-    
-  - Install cx_freeze for homebrew python 2:
+  - Make sure you have xcode standalone tools installed.  Nuitka will need to
+    use them to compile the Python code that was converted into C/C++ code.
+    Learn more here about installing them (if you have homebrew you likely
+    already have them installed):
+      http://railsapps.github.io/xcode-command-line-tools.html
 
-      pip2 install cx_freeze
+  - Install nuitka from pip.  Be sure to install it in python 2.7 and not
+    another python version:
+
+      pip2 install nuitka
 
     Make sure this completes successfully.  You should be able to run the
-    cxfreeze script and verify it shows usage info:
+    nuitka help command and verify it shows usage info:
 
-      cxfreeze
+      nuitka --help
 
 - Install nrfutil dependencies.  Be sure to install them into homebrew's python
-  2 as this is what cx_freeze will run from and use to find dependencies. Run
+  2 as this is what nuitka will run from and use to find dependencies. Run
   from this directory:
 
     pip2 install -r requirements.txt
     python setup.py install
 
-- That's it, you should be setup with cx_freeze on homebrew python 2 and all
+- That's it, you should be setup with nuitka on homebrew python 2 and all
   the nrfutil dependencies ready to go.
 
 Generating a frozen nrfutil:
-- You'll run a cxfreeze command to generate the executable and place it in
-  the binaries/macos location under the name nrfutil.  From this directory run:
+- You'll run a nuitka command to generate the executable.  From this directory run:
 
-    cxfreeze ./nordicsemi/__main__.py --target-dir binaries/macos --target-name nrfutil
+    nuitka --standalone --python-flag=no_site ./nordicsemi/__main__.py
 
-  If it completes without an error message then everything should be good.  Try
-  running ./binaries/macos/nrfutil to make sure you can get usage info.  The
+  You will see lots of warnings about modules that aren't included.  It appears
+  these can be ignored and the resulting executable is still good (it's likely
+  nuitka getting confused about what does and does not need to be included).
+
+  When the tool is done running it will produce a __main__.build and
+  __main__.dist directory.  The .build directory can be discarded and just has
+  temporary build artifacts.  The .dist directory has the output binary and
+  shared libraries required to be with it.  Nuitka generates the output with
+  the name __main__.exe (yeah, they add .exe even on mac and linux platforms)
+  so it needs to be renamed to nrfutil:
+
+    cp __main__.dist/__main__.exe
+
+  Then delete the old mac OS binary:
+
+    rm -rf binaries/macos/
+
+  And finally copy _everything_ from inside __main__.dist to the macos binaries
+  folder:
+
+    mkdir binaries/macos
+    cp __main__.dis/* binaries/macos/
+
+  At this point the binaries/macos directory should have the nrfutil executable
+  and all the .so files nuitka generated.  Try running nrfutil to make sure
+  it prints usage information.  Commit the updated files and you're done!  The
   boards.txt should already be pointing to this file so try using it in Arduino
   to upload to a board.
