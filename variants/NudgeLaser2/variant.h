@@ -1,0 +1,119 @@
+/*
+  Copyright (c) 2014-2015 Arduino LLC.  All right reserved.
+  Copyright (c) 2016 Sandeep Mistry All right reserved.
+  This library is free software; you can redistribute it and/or
+  modify it under the terms of the GNU Lesser General Public
+  License as published by the Free Software Foundation; either
+  version 2.1 of the License, or (at your option) any later version.
+  This library is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+  See the GNU Lesser General Public License for more details.
+  You should have received a copy of the GNU Lesser General Public
+  License along with this library; if not, write to the Free Software
+  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
+
+#ifndef _VARIANT_NRF52_DK_
+#define _VARIANT_NRF52_DK_
+
+/** Master clock frequency */
+#define VARIANT_MCK       (64000000ul)
+
+/*----------------------------------------------------------------------------
+ *        Headers
+ *----------------------------------------------------------------------------*/
+
+#include "WVariant.h"
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif // __cplusplus
+
+// Number of pins defined in PinDescription array
+#define PINS_COUNT           (32u)
+#define NUM_DIGITAL_PINS     (32u)
+#define NUM_ANALOG_INPUTS    (8u)
+#define NUM_ANALOG_OUTPUTS   (0u)
+
+// LEDs
+#define BLUE_LED                (28u)
+#define GREEN_LED               (29u)
+#define RED_LED                 (30u)
+#define PIN_LED1                RED_LED
+#define PIN_LED2                GREEN_LED
+#define PIN_LED3                BLUE_LED
+#define LED_BUILTIN             PIN_LED1
+
+#define LED_RED                 RED_LED
+#define LED_BLUE                BLUE_LED  // Used in the core for BLE
+
+#define LED_STATE_ON            1         // State when LED is litted
+
+// Buttons
+#define PIN_BUTTON1             (4u)
+#define PIN_BUTTON2             (7u)
+
+/*
+ * Serial interfaces
+ */
+// Serial
+#define PIN_SERIAL_RX           (8u)
+#define PIN_SERIAL_TX           (6u)
+
+/*
+ * SPI Interfaces
+ */
+#define SPI_INTERFACES_COUNT 1
+
+#define PIN_SPI_CS              (12u)
+#define PIN_SPI_MISO            (14u)
+#define PIN_SPI_MOSI            (16u)
+#define PIN_SPI_SCK             (20u)
+
+static const uint8_t SS   = PIN_SPI_CS ;
+static const uint8_t MOSI = PIN_SPI_MOSI ;
+static const uint8_t MISO = PIN_SPI_MISO ;
+static const uint8_t SCK  = PIN_SPI_SCK ;
+
+/*
+ * Wire Interfaces
+ */
+#define WIRE_INTERFACES_COUNT 1
+
+#define PIN_WIRE_SDA            (26u)
+#define PIN_WIRE_SCL            (27u)
+
+static const uint8_t SDA = PIN_WIRE_SDA;
+static const uint8_t SCL = PIN_WIRE_SCL;
+
+// Interupts
+#define PIN_MPU_INTERRUPT       (25u)
+#define PIN_STAT                (5u)
+#define PIN_LASER_TRIGGER       (3u)
+#define PIN_AIM_TRIGGER         (2u)
+
+static inline bool isPinValid(uint32_t pin)
+{
+  // 0, 1 is xtal
+  if (pin >= PINS_COUNT) return false;
+
+  const uint8_t forbid[] = { 0, 1, };
+  for(uint8_t i=0; i<sizeof(forbid); i++)
+  {
+    if ( pin == forbid[i] ) return false;
+  }
+
+  return true;
+}
+
+#ifdef __cplusplus
+}
+#endif
+
+/*----------------------------------------------------------------------------
+ *        Arduino objects - C++ only
+ *----------------------------------------------------------------------------*/
+
+#endif
