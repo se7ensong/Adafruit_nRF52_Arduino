@@ -1,5 +1,18 @@
 # Adafruit nRF52 Arduino Core Changelog
 
+## 0.8.3
+
+- Enhanced indicate API() to wait for confirm or timeout from peer.
+- Added BLEScanner filterService() for BLEService and BLEClientService
+- Enhanced bonding management to support central bond and re-connection
+- Added BLEClientHidAdafruit implementation for client HID
+	- Added Central HID example
+- Enhanced BLEHidGeneric/BLEHidAdafruit to support boot protocol mode.
+- Fixed I2C lock-up when endTransmission() is called with empty txBuffer.
+- Fixed #125 : DFU temp memory typo
+- Fixed #126 : setWriteAuthorizeCallback typo
+- Fixed #90 : using VDD as analog reference
+
 ## 0.8.2
 
 - Fixed burning bootloader issue with MacOS

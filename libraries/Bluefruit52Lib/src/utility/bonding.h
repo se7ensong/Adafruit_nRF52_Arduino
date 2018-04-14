@@ -1,13 +1,13 @@
 /**************************************************************************/
 /*!
-    @file     BLECentral.h
-    @author   hathach
+    @file     bonding.h
+    @author   hathach (tinyusb.org)
 
     @section LICENSE
 
     Software License Agreement (BSD License)
 
-    Copyright (c) 2017, Adafruit Industries (adafruit.com)
+    Copyright (c) 2018, Adafruit Industries (adafruit.com)
     All rights reserved.
 
     Redistribution and use in source and binary forms, with or without
@@ -33,63 +33,51 @@
     SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 /**************************************************************************/
-#ifndef BLECENTRAL_H_
-#define BLECENTRAL_H_
+#ifndef BONDING_H_
+#define BONDING_H_
 
-#include <Arduino.h>
 #include "bluefruit_common.h"
 
-#include "BLEGap.h"
-#include "BLEGatt.h"
+#define BOND_DIR_ROOT             "/adafruit/bond"
+#define BOND_DIR_PRPH             BOND_DIR_ROOT "/prph"
+#define BOND_DIR_CNTR             BOND_DIR_ROOT "/cntr"
 
-#include "BLEUuid.h"
-#include "BLECharacteristic.h"
-#include "BLEClientCharacteristic.h"
-#include "BLEService.h"
+#define BOND_FNAME_PRPH           BOND_DIR_PRPH "/%04x"
+#define BOND_FNAME_CNTR           BOND_DIR_CNTR "/%04x"
 
-#include "BLEClientService.h"
+#define BOND_FNAME_LEN            max(sizeof(BOND_FNAME_PRPH), sizeof(BOND_FNAME_CNTR))
 
-class AdafruitBluefruit;
-
-class BLECentral
+// Shared keys with bonded device, size = 80 bytes
+typedef struct
 {
-  public:
-    BLECentral(void); // Constructor
+  ble_gap_enc_key_t own_enc;
+  ble_gap_enc_key_t peer_enc;
+  ble_gap_id_key_t  peer_id;
+} bond_data_t;
 
-    void begin(void);
-
-    /*------------------------------------------------------------------*/
-    /* GAP
-     *------------------------------------------------------------------*/
-    bool     setConnInterval(uint16_t min, uint16_t max);
-    bool     setConnIntervalMS (uint16_t min_ms, uint16_t max_ms);
-
-    bool     connect(const ble_gap_evt_adv_report_t* adv_report);
-    bool     connect(const ble_gap_addr_t *peer_addr);
-    bool     disconnect(uint16_t conn_handle);
-
-    bool     connected (uint16_t conn_handle); // If connected to a specific peripheral
-    bool     connected (void);                 // If connected to any peripherals
-
-    void     clearBonds        (void);
-
-    /*------------- Callbacks -------------*/
-    void setConnectCallback   ( BLEGap::connect_callback_t    fp);
-    void setDisconnectCallback( BLEGap::disconnect_callback_t fp);
-
-  private:
-    // Peripheral Preferred Connection Parameters (PPCP)
-    uint16_t _ppcp_min_conn;
-    uint16_t _ppcp_max_conn;
-
-    BLEGap::connect_callback_t    _connect_cb;
-    BLEGap::disconnect_callback_t _disconnect_cb;
-
-    void     _event_handler(ble_evt_t* evt);
-
-    friend class AdafruitBluefruit;
+enum
+{
+  BOND_FILE_DEVNAME_OFFSET = sizeof(bond_data_t),
+  BOND_FILE_CCCD_OFFSET    = BOND_FILE_DEVNAME_OFFSET + CFG_MAX_DEVNAME_LEN
 };
 
+void bond_init(void);
+void bond_clear_prph(void);
+void bond_clear_cntr(void);
+void bond_clear_all(void);
+
+void bond_remove_key(uint8_t role, uint16_t ediv);
+
+void bond_save_keys(uint8_t role, uint16_t conn_hdl, bond_data_t* bdata);
+bool bond_load_keys(uint8_t role, uint16_t ediv, bond_data_t* bdata);
+
+void bond_save_cccd(uint8_t role, uint16_t cond_hdl, uint16_t ediv);
+bool bond_load_cccd(uint8_t role, uint16_t cond_hdl, uint16_t ediv);
+
+void bond_print_list(uint8_t role);
+
+bool bond_find_cntr(ble_gap_addr_t* addr, bond_data_t* bdata);
 
 
-#endif /* BLECENTRAL_H_ */
+
+#endif /* BONDING_H_ */
