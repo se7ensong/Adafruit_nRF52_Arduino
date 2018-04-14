@@ -69,8 +69,8 @@ extern "C"
 
 #define PIN_SPI_CS              (12u)
 #define PIN_SPI_MISO            (14u)
-#define PIN_SPI_MOSI            (16u)
-#define PIN_SPI_SCK             (20u)
+#define PIN_SPI_MOSI            (20u)
+#define PIN_SPI_SCK             (16u)
 
 static const uint8_t SS   = PIN_SPI_CS ;
 static const uint8_t MOSI = PIN_SPI_MOSI ;

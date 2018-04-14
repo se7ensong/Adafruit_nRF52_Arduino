@@ -46,6 +46,11 @@ extern "C"
 #define PIN_LED3                BLUE_LED
 #define LED_BUILTIN             PIN_LED1
 
+#define LED_RED                 RED_LED
+#define LED_BLUE                BLUE_LED  // Used in the core for BLE
+
+#define LED_STATE_ON            1         // State when LED is litted
+
 // Buttons
 #define PIN_BUTTON1             (18u)
 #define PIN_BUTTON2             (7u)
@@ -62,11 +67,12 @@ extern "C"
  */
 #define SPI_INTERFACES_COUNT 1
 
+#define PIN_SPI_CS              (30u)
 #define PIN_SPI_MISO            (31u)
 #define PIN_SPI_MOSI            (28u)
 #define PIN_SPI_SCK             (29u)
 
-static const uint8_t SS   = 30;
+static const uint8_t SS   = PIN_SPI_CS ;
 static const uint8_t MOSI = PIN_SPI_MOSI ;
 static const uint8_t MISO = PIN_SPI_MISO ;
 static const uint8_t SCK  = PIN_SPI_SCK ;
@@ -87,6 +93,20 @@ static const uint8_t SCL = PIN_WIRE_SCL;
 #define PIN_STAT                (27u)
 #define PIN_LASER_TRIGGER       (13u)
 #define PIN_AIM_TRIGGER         (17u)
+
+static inline bool isPinValid(uint32_t pin)
+{
+  // 0, 1 is xtal
+  if (pin >= PINS_COUNT) return false;
+
+  const uint8_t forbid[] = { 0, 1, };
+  for(uint8_t i=0; i<sizeof(forbid); i++)
+  {
+    if ( pin == forbid[i] ) return false;
+  }
+
+  return true;
+}
 
 #ifdef __cplusplus
 }
