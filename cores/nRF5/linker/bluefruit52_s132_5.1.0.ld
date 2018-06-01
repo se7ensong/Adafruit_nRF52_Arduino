@@ -14,7 +14,7 @@ MEMORY
    * - Concurrent connection peripheral + central + secure links
    * - Event Len, HVN queue, Write CMD queue
    */ 
-  RAM (rwx) :  ORIGIN = 0x20005200, LENGTH = 0x20010000 - 0x20005200
+  RAM (rwx) :  ORIGIN = 0x20006200, LENGTH = 0x20010000 - 0x20006200
 }
 
 SECTIONS
