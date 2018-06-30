@@ -94,7 +94,7 @@ AdafruitBluefruit::AdafruitBluefruit(void)
 
   _sd_cfg.attr_table_size = 0x800;
   _sd_cfg.uuid128_max     = BLE_UUID_VS_COUNT_DEFAULT;
-  _sd_cfg.service_changed = 0;
+  _sd_cfg.service_changed = 1;
 
 
   _prph_count    = 0;
