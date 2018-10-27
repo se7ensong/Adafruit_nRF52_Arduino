@@ -59,11 +59,14 @@ extern "C"
  * Serial interfaces
  */
 // Serial
-#define PIN_SERIAL_RX            (15u)
-#define PIN_SERIAL_TX            (17u)
+#define PIN_SCANNER_RX            (15u)
+#define PIN_SCANNER_TX            (17u)
 
-#define PIN_SERIAL1_RX           (12u)
-#define PIN_SERIAL1_TX           (14u)
+#define PIN_MCU_RX                (12u)
+#define PIN_MCU_TX                (14u)
+
+#define PIN_SERIAL_RX             PIN_MCU_RX
+#define PIN_SERIAL_TX             PIN_MCU_TX
 
 /*
  * SPI Interfaces
@@ -97,7 +100,7 @@ static const uint8_t SCL = PIN_WIRE_SCL;
 #define PIN_STAT                (31u)
 #define PIN_SCANNER_TRIGGER     (30u)
 #define PIN_SCANNER_DECODE      (20u)
-#define PIN_SCANNER_POWER       (27u)
+#define PIN_SCANNER_POWER       (28u)
 
 #define PIN_LASER_TRIGGER   PIN_SCANNER_TRIGGER    
 
