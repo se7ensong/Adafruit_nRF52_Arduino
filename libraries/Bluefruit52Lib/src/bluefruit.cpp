@@ -38,11 +38,23 @@
 #include <Nffs.h>
 #include "utility/bonding.h"
 
+#ifndef CFG_BLE_TX_POWER_LEVEL
 #define CFG_BLE_TX_POWER_LEVEL           0
-#define CFG_DEFAULT_NAME                 "Bluefruit52"
+#endif
 
+#ifndef CFG_DEFAULT_NAME
+#define CFG_DEFAULT_NAME                 "Bluefruit52"
+#endif
+
+
+#ifndef CFG_BLE_TASK_STACKSIZE
 #define CFG_BLE_TASK_STACKSIZE          (512*3)
+#endif
+
+#ifndef CFG_SOC_TASK_STACKSIZE
 #define CFG_SOC_TASK_STACKSIZE          (200)
+#endif
+
 
 AdafruitBluefruit Bluefruit;
 
