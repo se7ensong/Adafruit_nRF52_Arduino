@@ -65,7 +65,7 @@ extern "C"
 #define PIN_MCU_RX                (12u)
 #define PIN_MCU_TX                (14u)
 
-#define PIN_SERIAL_RX             PIN_MCU_RX
+#define PIN_SERIAL_RX             PIN_SCANNER_RX
 #define PIN_SERIAL_TX             PIN_MCU_TX
 
 /*
@@ -97,8 +97,8 @@ static const uint8_t SCL = PIN_WIRE_SCL;
 // Interupts
 #define PIN_MPU_INTERRUPT       (4u)
 #define PIN_RTC_INTERRUPT       (19u)
-#define PIN_STAT                (31u)
-#define PIN_SCANNER_TRIGGER     (30u)
+#define PIN_STAT                (27u)
+#define PIN_SCANNER_TRIGGER     (2u)
 #define PIN_SCANNER_DECODE      (20u)
 #define PIN_SCANNER_POWER       (28u)
 
