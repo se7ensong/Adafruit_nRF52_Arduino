@@ -101,7 +101,7 @@ static const uint8_t SCL = PIN_WIRE_SCL;
 #define PIN_SCANNER_TRIGGER     (2u)
 #define PIN_SCANNER_DECODE      (20u)
 #define PIN_SCANNER_POWER       (28u)
-
+#define PIN_BATTERY_VOLTAGE     (30u)
 #define PIN_LASER_TRIGGER   PIN_SCANNER_TRIGGER    
 
 static inline bool isPinValid(uint32_t pin)
