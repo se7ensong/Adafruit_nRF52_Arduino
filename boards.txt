@@ -20,6 +20,49 @@ menu.softdevice=Bootloader Version
 menu.debug=Debug Mode
 
 #**********************************************
+# DnaBand
+#**********************************************
+dnaband.name = DnaBand V4.1
+dnaband.bootloader.tool = bootburn
+
+# Upload
+dnaband.upload.tool=nrfutil
+dnaband.upload.protocol=nrfutil
+dnaband.upload.use_1200bps_touch=false
+dnaband.upload.wait_for_upload_port=false
+dnaband.upload.native_usb=false
+
+# Build
+dnaband.build.mcu=cortex-m4
+dnaband.build.f_cpu=64000000
+dnaband.build.board=DnaBand_v4
+dnaband.build.core=nRF5
+dnaband.build.variant=Dnaband_v4_1
+dnaband.build.extra_flags=-DNRF52832_XXAA -DNRF52
+
+# SofDevice Menu
+# Ram & ROM size varies depending on SoftDevice (check linker script)
+
+dnaband.menu.softdevice.s132v6=0.2.5 (s132 6.1.1)
+dnaband.menu.softdevice.s132v6.build.sd_flags=-DS132
+dnaband.menu.softdevice.s132v6.build.sd_name=s132
+dnaband.menu.softdevice.s132v6.build.sd_version=6.1.1
+dnaband.menu.softdevice.s132v6.build.sd_fwid=0x00B7
+dnaband.menu.softdevice.s132v6.build.ldscript=nrf52832_s132_v6.ld
+dnaband.menu.softdevice.s132v6.upload.maximum_size=290816
+dnaband.menu.softdevice.s132v6.upload.maximum_data_size=51072
+
+# Debug Menu
+dnaband.menu.debug.l0=Level 0 (Release)
+dnaband.menu.debug.l0.build.debug_flags=-DCFG_DEBUG=0 -Os
+dnaband.menu.debug.l1=Level 1 (Error Message)
+dnaband.menu.debug.l1.build.debug_flags=-DCFG_DEBUG=1 -Os
+dnaband.menu.debug.l2=Level 2 (Full Debug)
+dnaband.menu.debug.l2.build.debug_flags=-DCFG_DEBUG=2 -Os
+dnaband.menu.debug.l3=Level 3 (Segger SystemView)
+dnaband.menu.debug.l3.build.debug_flags=-DCFG_DEBUG=3 -Os
+
+#**********************************************
 # Feather nRF52832 Board
 #**********************************************
 feather52832.name=Adafruit Bluefruit nRF52832 Feather
