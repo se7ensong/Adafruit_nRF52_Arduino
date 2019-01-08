@@ -1,6 +1,8 @@
-/*
+ /*
   Copyright (c) 2014-2015 Arduino LLC.  All right reserved.
   Copyright (c) 2016 Sandeep Mistry All right reserved.
+  Copyright (c) 2018, Adafruit Industries (adafruit.com)
+
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
   License as published by the Free Software Foundation; either
@@ -19,6 +21,10 @@
 
 /** Master clock frequency */
 #define VARIANT_MCK       (64000000ul)
+
+// Uncomment USE_LFXO if not using platformIO build script
+// define USE_LFXO      // Board uses 32khz crystal for LF
+// define USE_LFRC    // Board uses RC for LF
 
 /*----------------------------------------------------------------------------
  *        Headers
@@ -45,6 +51,7 @@ extern "C"
 #define PIN_LED2                GREEN_LED
 #define PIN_LED3                BLUE_LED
 #define LED_BUILTIN             PIN_LED1
+#define LED_CONN             PIN_LED2
 
 #define LED_RED                 RED_LED
 #define LED_BLUE                BLUE_LED  // Used in the core for BLE
