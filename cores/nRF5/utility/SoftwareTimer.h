@@ -54,6 +54,11 @@ class SoftwareTimer
     void start(void) { xTimerStart(_handle, 0); }
     void stop (void) { xTimerStop (_handle, 0); }
 
+    TimerHandle_t getHandle(void)
+    {
+      return _handle;
+    }
+    
     void setPeriod(uint32_t ms)
     {
       BaseType_t active = xTimerIsTimerActive(_handle);

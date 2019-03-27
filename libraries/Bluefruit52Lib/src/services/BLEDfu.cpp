@@ -168,6 +168,32 @@ static void bledfu_control_wr_authorize_cb(BLECharacteristic& chr, ble_gatts_evt
       // Disable Systick to prevent Interrupt happens after changing vector table
       bitClear(SysTick->CTRL, SysTick_CTRL_ENABLE_Pos);
 
+      // Disable all PWM
+      NRF_PWM0->TASKS_STOP = 1;
+      NRF_PWM0->ENABLE = 0;
+      NRF_PWM1->TASKS_STOP = 1;
+      NRF_PWM1->ENABLE = 0;
+      NRF_PWM2->TASKS_STOP = 1;
+      NRF_PWM2->ENABLE = 0;
+
+      // Disable I2C
+      NRF_TWI0->TASKS_STOP = 1;
+      NRF_TWI0->ENABLE = 0;
+      NRF_TWI1->TASKS_STOP = 1;
+      NRF_TWI1->ENABLE = 0;
+
+      // Disable all SPI
+      NRF_SPI0->ENABLE = 0;
+      NRF_SPI1->ENABLE = 0;
+      NRF_SPI2->ENABLE = 0;
+
+      // Pull UP battery STAT pin
+      NRF_GPIO->PIN_CNF[27] = ((uint32_t)GPIO_PIN_CNF_DIR_Input      << GPIO_PIN_CNF_DIR_Pos)
+                          | ((uint32_t)GPIO_PIN_CNF_INPUT_Connect    << GPIO_PIN_CNF_INPUT_Pos)
+                          | ((uint32_t)GPIO_PIN_CNF_PULL_Pullup    << GPIO_PIN_CNF_PULL_Pos)
+                          | ((uint32_t)GPIO_PIN_CNF_DRIVE_S0S1       << GPIO_PIN_CNF_DRIVE_Pos)
+                          | ((uint32_t)GPIO_PIN_CNF_SENSE_Disabled   << GPIO_PIN_CNF_SENSE_Pos);
+
       // Disable all interrupts
       NVIC_ClearPendingIRQ(SD_EVT_IRQn);
       for(int i=0; i <= FPU_IRQn; i++)
