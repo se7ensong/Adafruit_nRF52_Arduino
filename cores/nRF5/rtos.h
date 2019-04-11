@@ -102,6 +102,8 @@ public:
 
   bool startLoop(taskfunc_t task, uint32_t stack_size = SCHEDULER_STACK_SIZE_DFLT);
   bool startLoop(taskfunc_t task, const char* name, uint32_t stack_size = SCHEDULER_STACK_SIZE_DFLT);
+  bool startLoop(taskfunc_t task, const char* name, uint32_t stack_size, uint8_t priority);
+
 };
 
 extern SchedulerRTOS Scheduler;
