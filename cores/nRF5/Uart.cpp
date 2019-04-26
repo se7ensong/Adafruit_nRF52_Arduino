@@ -53,6 +53,12 @@ void Uart::setPins(uint8_t pin_rx, uint8_t pin_tx)
   uc_pinTX = pin_tx;
 }
 
+void Uart::setPins(uint32_t pin_rx, uint32_t pin_tx)
+{
+  uc_pinRX = pin_rx;
+  uc_pinTX = pin_tx;
+}
+
 void Uart::begin(unsigned long baudrate)
 {
   begin(baudrate, (uint8_t)SERIAL_8N1);
