@@ -192,7 +192,7 @@ void Uart::end()
 
 void Uart::flush()
 {
-	//rxBuffer.clear();
+	rxBuffer.clear();
 }
 
 void Uart::IrqHandler()
