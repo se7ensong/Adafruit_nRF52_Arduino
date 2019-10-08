@@ -173,6 +173,10 @@ void BLECentral::_event_handler(ble_evt_t* evt)
       }
     break;
 
+    case BLE_GATTC_EVT_EXCHANGE_MTU_RSP:
+      Bluefruit.Gap.setMTU(evt_conn_hdl, evt->evt.gattc_evt.params.exchange_mtu_rsp.server_rx_mtu);
+    break;
+
     default: break;
   }
 }
