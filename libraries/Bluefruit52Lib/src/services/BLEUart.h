@@ -42,7 +42,7 @@
 #include "BLECharacteristic.h"
 #include "BLEService.h"
 
-#define BLE_UART_DEFAULT_FIFO_DEPTH   256
+#define BLE_UART_DEFAULT_FIFO_DEPTH   512
 
 extern const uint8_t BLEUART_UUID_SERVICE[];
 extern const uint8_t BLEUART_UUID_CHR_RXD[];

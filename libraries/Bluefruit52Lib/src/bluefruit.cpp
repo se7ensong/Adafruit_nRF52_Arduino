@@ -183,7 +183,7 @@ void AdafruitBluefruit::configPrphBandwidth(uint8_t bw)
     break;
 
     case BANDWIDTH_MAX:
-      configPrphConn(247, 6, 3, BLE_GATTC_WRITE_CMD_TX_QUEUE_SIZE_DEFAULT);
+      configPrphConn(512, 6, 3, BLE_GATTC_WRITE_CMD_TX_QUEUE_SIZE_DEFAULT);
     break;
 
     default: break;
@@ -214,7 +214,7 @@ void AdafruitBluefruit::configCentralBandwidth(uint8_t bw)
     break;
 
     case BANDWIDTH_MAX:
-      configCentralConn(247, 6, 1, 3);
+      configCentralConn(512, 6, 1, 3);
     break;
 
     default: break;

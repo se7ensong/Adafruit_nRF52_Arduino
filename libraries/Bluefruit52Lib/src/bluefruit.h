@@ -49,7 +49,7 @@
 #if SD_VER < 500
 #define BLEGATT_ATT_MTU_MAX             BLE_GATT_ATT_MTU_DEFAULT
 #else
-#define BLEGATT_ATT_MTU_MAX             247
+#define BLEGATT_ATT_MTU_MAX             512
 #endif
 
 #define BLE_PRPH_MAX_CONN               1
