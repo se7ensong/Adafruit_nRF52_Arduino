@@ -103,7 +103,7 @@ bool HardwarePWM::addPin(uint8_t pin)
   }
 
   pinMode(pin, OUTPUT);
-  digitalWrite(pin, LOW);
+  digitalWrite(pin, HIGH);
 
   // Must disable before changing PSEL
   if ( enabled() )

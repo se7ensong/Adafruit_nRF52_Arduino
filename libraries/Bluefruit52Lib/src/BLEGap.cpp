@@ -233,6 +233,11 @@ uint16_t BLEGap::getMTU (uint16_t conn_hdl)
   return _peers[conn_hdl].att_mtu;
 }
 
+void BLEGap::setMTU (uint16_t conn_hdl, uint16_t mtu_size)
+{
+  _peers[conn_hdl].att_mtu = mtu_size;
+}
+
 uint16_t BLEGap::getPeerName(uint16_t conn_hdl, char* buf, uint16_t bufsize)
 {
   return Bluefruit.Gatt.readCharByUuid(conn_hdl, BLEUuid(BLE_UUID_GAP_CHARACTERISTIC_DEVICE_NAME), buf, bufsize);
