@@ -1,6 +1,6 @@
 {
-  "name": "Adafruit_nRF52_Arduino",
+  "name": "framework-arduinoadafruitnrf52-dnanudge",
   "version": "1.0.0",
-  "description": "",
+  "description": "Adafruit_nRF52_Arduino",
   "author": "",
 }
